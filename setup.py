@@ -46,9 +46,10 @@ setuptools.setup(
         #  3 - Beta
         #  4 - Field
         #  5 - Production/Stable
-        "Development Status :: 4 - Field",
+        "Development Status :: 5 - Production/Stable",
         "Operating System :: Linux",
         "Operating System :: Linux :: Centos",
+        "Operating System :: Linux :: Ubuntu",
         "Git :: Gitlab",
         "Git :: Github",
         "Programming Language :: Python",

@@ -37,42 +37,38 @@ import version
 __version__ = version.__version__
 
 
-def merge2(arg1, arg2, arg3, arg4, arg5, branch):
+def merge2(arg_list):
 
     """Function:  merge
 
     Description:  Method stub holder for git.Repo.git.merge().
 
     Arguments:
-        arg1 -> Stub holder.
-        arg2 -> Stub holder.
-        arg3 -> Stub holder.
-        arg4 -> Stub holder.
-        arg5 -> Stub holder.
-        branch -> Stub holder.
+        (input) arg_list -> List of arguments for merge command.
 
     """
 
-    raise git.exc.GitCommandError("git", 128, "stderr")
+    if arg_list:
+         raise git.exc.GitCommandError("git", 128, "stderr")
 
 
-def merge(arg1, arg2, arg3, arg4, arg5, branch):
+def merge(arg_list):
 
     """Function:  merge
 
     Description:  Method stub holder for git.Repo.git.merge().
 
     Arguments:
-        arg1 -> Stub holder.
-        arg2 -> Stub holder.
-        arg3 -> Stub holder.
-        arg4 -> Stub holder.
-        arg5 -> Stub holder.
-        branch -> Stub holder.
+        (input) arg_list -> List of arguments for merge command.
 
     """
 
-    pass
+    status = True
+
+    if arg_list:
+        status = True
+
+    return status
 
 
 class UnitTest(unittest.TestCase):
@@ -83,6 +79,8 @@ class UnitTest(unittest.TestCase):
 
     Methods:
         setUp -> Unit testing initilization.
+        test_allow_branch_options - Test with allow and branch parameters.
+        test_allow_option -> Test with allow parameter passed.
         test_priority_merge_branch -> Test with branch parameter passed.
         test_priority_merge_exception -> Test with raised exception.
         test_priority_merge_true -> Test with successful checkout call.
@@ -107,6 +105,38 @@ class UnitTest(unittest.TestCase):
 
         self.gitr = git_class.GitMerge(self.repo_name, self.git_dir, self.url,
                                        self.branch, self.mod_branch)
+
+    def test_allow_branch_options(self):
+
+        """Function:  test_allow_branch_options
+
+        Description:  Test with allow and branch parameters.
+
+        Arguments:
+
+        """
+
+        GIT = collections.namedtuple('GIT', 'merge')
+        self.gitr.gitcmd = GIT(merge)
+
+        status, msg = self.gitr.priority_merge(ranch="New_Branch", allow=True)
+        self.assertEqual((status, msg), (True, {}))
+
+    def test_allow_option(self):
+
+        """Function:  test_allow_option
+
+        Description:  Test with allow parameter passed.
+
+        Arguments:
+
+        """
+
+        GIT = collections.namedtuple('GIT', 'merge')
+        self.gitr.gitcmd = GIT(merge)
+
+        status, msg = self.gitr.priority_merge(allow=True)
+        self.assertEqual((status, msg), (True, {}))
 
     def test_priority_merge_branch(self):
 

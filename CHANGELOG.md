@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on "Keep a Changelog".  This project adheres to Semantic Versioning.
 
 
+## [1.0.0] - 2021-03-09
+- General Release
+
+### Changed
+- GitMerge.priority_merge:  Add option to merge unrelated git histories.
+- Removed uncessary \*\*kwargs from methods function paramters.
+
+
 ## [0.3.1] - 2020-03-27
 ### Fixed
 - GitMerge.remove_branch:  Added no_chk argument to suspend checking of current branch.

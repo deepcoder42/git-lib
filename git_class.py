@@ -43,7 +43,7 @@ class GitClass(object):
 
     """
 
-    def __init__(self, repo_dir=".", **kwargs):
+    def __init__(self, repo_dir="."):
 
         """Method:  __init__
 
@@ -59,7 +59,7 @@ class GitClass(object):
         self.gitinit = None
         self.repo_dir = repo_dir
 
-    def create_repo(self, repo_dir=None, **kwargs):
+    def create_repo(self, repo_dir=None):
 
         """Method:  create_repo
 
@@ -75,7 +75,7 @@ class GitClass(object):
 
         self.gitrepo = git.Repo(self.repo_dir)
 
-    def create_cmd(self, **kwargs):
+    def create_cmd(self):
 
         """Method:  create_cmd
 
@@ -88,7 +88,7 @@ class GitClass(object):
         if self.gitrepo:
             self.gitcmd = self.gitrepo.git
 
-    def create_init(self, repo_dir=None, **kwargs):
+    def create_init(self, repo_dir=None):
 
         """Method:  create_init
 
@@ -139,7 +139,7 @@ class GitMerge(GitClass):
 
     """
 
-    def __init__(self, repo_name, git_dir, url, branch, mod_branch, **kwargs):
+    def __init__(self, repo_name, git_dir, url, branch, mod_branch):
 
         """Method:  __init__
 
@@ -168,7 +168,7 @@ class GitMerge(GitClass):
         self.chg_files = []
         self.new_files = []
 
-    def create_gitrepo(self, **kwargs):
+    def create_gitrepo(self):
 
         """Method:  create_gitrepo
 
@@ -181,7 +181,7 @@ class GitMerge(GitClass):
         super(GitMerge, self).create_repo()
         super(GitMerge, self).create_cmd()
 
-    def set_remote(self, **kwargs):
+    def set_remote(self):
 
         """Method:  set_remote
 
@@ -193,7 +193,7 @@ class GitMerge(GitClass):
 
         self.gitcmd.remote("set-url", "origin", self.url)
 
-    def is_remote(self, **kwargs):
+    def is_remote(self):
 
         """Method:  is_remote
 
@@ -211,7 +211,7 @@ class GitMerge(GitClass):
         except git.exc.GitCommandError:
             return False
 
-    def process_dirty(self, option="revert", **kwargs):
+    def process_dirty(self, option="revert"):
 
         """Function:  process_dirty
 
@@ -250,7 +250,7 @@ class GitMerge(GitClass):
                 self.gitrepo.index.add(self.chg_files)
                 self.gitrepo.index.commit("Commit modified files")
 
-    def process_untracked(self, option="remove", **kwargs):
+    def process_untracked(self, option="remove"):
 
         """Function:  process_untracked
 
@@ -278,7 +278,7 @@ class GitMerge(GitClass):
                     else:
                         gen_libs.rm_file(os.path.join(self.git_dir, f_name))
 
-    def get_dirty(self, **kwargs):
+    def get_dirty(self):
 
         """Function:  get_dirty
 
@@ -297,7 +297,7 @@ class GitMerge(GitClass):
         self.chg_files = [item.a_path for item in self.gitrepo.index.diff(None)
                           if item.change_type == "M"]
 
-    def get_untracked(self, **kwargs):
+    def get_untracked(self):
 
         """Function:  get_untracked
 
@@ -310,7 +310,7 @@ class GitMerge(GitClass):
 
         self.new_files = self.gitrepo.untracked_files
 
-    def is_dirty(self, **kwargs):
+    def is_dirty(self):
 
         """Function:  is_dirty
 
@@ -323,7 +323,7 @@ class GitMerge(GitClass):
 
         return self.gitrepo.is_dirty()
 
-    def is_untracked(self, **kwargs):
+    def is_untracked(self):
 
         """Function:  is_untracked
 
@@ -336,7 +336,7 @@ class GitMerge(GitClass):
 
         return self.gitrepo.is_dirty(untracked_files=True)
 
-    def git_fetch(self, cnt=0, **kwargs):
+    def git_fetch(self, cnt=0):
 
         """Function:  git_fetch
 
@@ -369,7 +369,7 @@ class GitMerge(GitClass):
 
         return status, msg
 
-    def rename_br(self, branch=None, **kwargs):
+    def rename_br(self, branch=None):
 
         """Function:  rename_br
 
@@ -399,7 +399,7 @@ class GitMerge(GitClass):
 
         return status, msg
 
-    def git_co(self, branch=None, **kwargs):
+    def git_co(self, branch=None):
 
         """Function:  git_co
 
@@ -439,6 +439,8 @@ class GitMerge(GitClass):
 
         Arguments:
             (input) branch -> Name of branch to merge with current branch.
+            (input) **kwargs:
+                allow -> True|False - Allow merge of unrelated histories.
             (output) status -> True|False - Success of command.
             (output) msg -> Dictionary of return error code.
 
@@ -450,9 +452,13 @@ class GitMerge(GitClass):
         if not branch:
             branch = self.mod_branch
 
+        arg_list = ["--no-ff", "-s", "recursive", "-X", "theirs", branch]
+
+        if kwargs.get("allow", False):
+            arg_list.append("--allow-unrelated-histories")
+
         try:
-            self.gitcmd.merge("--no-ff", "-s", "recursive", "-X", "theirs",
-                              branch)
+            self.gitcmd.merge(arg_list)
 
         except git.exc.GitCommandError as (code):
             status = False
@@ -463,7 +469,7 @@ class GitMerge(GitClass):
 
         return status, msg
 
-    def git_pu(self, cnt=0, tags=False, **kwargs):
+    def git_pu(self, cnt=0, tags=False):
 
         """Function:  git_pu
 
@@ -501,7 +507,7 @@ class GitMerge(GitClass):
 
         return status, msg
 
-    def commits_diff(self, data_str, **kwargs):
+    def commits_diff(self, data_str):
 
         """Function:  commits_diff
 
@@ -525,9 +531,9 @@ class GitMerge(GitClass):
 
         """
 
-        return sum(1 for x in self.gitrepo.iter_commits(data_str))
+        return sum(1 for _ in self.gitrepo.iter_commits(data_str))
 
-    def is_commits_ahead(self, branch, **kwargs):
+    def is_commits_ahead(self, branch):
 
         """Function:  is_commits_ahead
 
@@ -545,7 +551,7 @@ class GitMerge(GitClass):
 
         return self.commits_diff("origin/" + branch + ".." + branch)
 
-    def is_commits_behind(self, branch, **kwargs):
+    def is_commits_behind(self, branch):
 
         """Function:  is_commits_behind
 
@@ -563,7 +569,7 @@ class GitMerge(GitClass):
 
         return self.commits_diff(branch + "..origin/" + branch)
 
-    def is_remote_branch(self, branch, **kwargs):
+    def is_remote_branch(self, branch):
 
         """Function:  is_remote_branch
 
@@ -582,7 +588,7 @@ class GitMerge(GitClass):
         except git.exc.GitCommandError:
             return False
 
-    def detach_head(self, **kwargs):
+    def detach_head(self):
 
         """Function:  detach_head
 
@@ -595,7 +601,7 @@ class GitMerge(GitClass):
 
         self.gitcmd.checkout(str(self.gitrepo.active_branch.commit.hexsha))
 
-    def get_br_name(self, **kwargs):
+    def get_br_name(self):
 
         """Function:  get_br_name
 
@@ -608,7 +614,7 @@ class GitMerge(GitClass):
 
         return self.gitrepo.active_branch.name
 
-    def remove_branch(self, branch, no_chk=False, **kwargs):
+    def remove_branch(self, branch, no_chk=False):
 
         """Function:  remove_branch
 
@@ -650,7 +656,7 @@ class GitConfig(GitClass):
 
     """
 
-    def __init__(self, repo_dir, **kwargs):
+    def __init__(self, repo_dir):
 
         """Method:  __init__
 
@@ -670,7 +676,7 @@ class GitConfig(GitClass):
         self.reader = self.gitinit.config_reader()
         self.writer = self.gitinit.config_writer()
 
-    def get_email(self, **kwargs):
+    def get_email(self):
 
         """Function:  get_email
 
@@ -683,7 +689,7 @@ class GitConfig(GitClass):
 
         return self.reader.get_value("user", "email")
 
-    def get_user(self, **kwargs):
+    def get_user(self):
 
         """Function:  get_user
 
@@ -696,7 +702,7 @@ class GitConfig(GitClass):
 
         return self.reader.get_value("user", "name")
 
-    def set_email(self, email, **kwargs):
+    def set_email(self, email):
 
         """Function:  set_email
 
@@ -709,7 +715,7 @@ class GitConfig(GitClass):
 
         return self.writer.set_value("user", "email", email).release()
 
-    def set_user(self, name, **kwargs):
+    def set_user(self, name):
 
         """Function:  set_user
 

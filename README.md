@@ -2,19 +2,14 @@
 # Classification (U)
 
 # Description:
-  This program is used to interact with local and remote Git repositories and have capbility to merge repositories.  It contains classes and libraries for both local and remote Git repositories.
+  This project is used to interact with local and remote Git repositories and have capbility to merge repositories.  It contains classes and libraries for both local and remote Git repositories.
 
 ###  This README file is broken down into the following sections:
-  * Features
   * Prerequisites
+    - Pip Installation
   * Installation
   * Testing
     - Unit
-
-
-# Features:
-  * Class that initializes and sets up instances to the Python git repository and git command line instances.
-  * Class that handles operations of merging a git repository with a remote git repository.
 
 
 # Prerequisites:
@@ -28,54 +23,34 @@
 
 
 # Installation:
-  There are two types of installs: pip and git.
 
 ### Pip Installation:
+  * Replace **{Python_Project}** with the baseline path of the python program.
   * Replace **{Other_Python_Project}** with the baseline path of another python program.
 
 ##### Create requirements file in another program's project to install git-lib as a library module.
 
-Create requirements-git-lib.txt file:
-```
-vim {Other_Python_Project}/requirements-git-lib.txt
-```
+Create requirements-git-lib.txt file and requirements-python-lib.txt files:
 
-Add the following lines to the requirements-git-lib.txt file:
 ```
-git+ssh://git@github.com/deepcoder42/git-lib.git#egg=git-lib
-```
-
-Create requirements-python-lib.txt file:
-```
-vim {Other_Python_Project}/requirements-python-lib.txt
-```
-
-Add the following lines to the requirements-python-lib.txt file:
-```
-git+ssh://git@github.com/deepcoder42/python-lib.git#egg=python-lib
+cd {Python_Project}
+cp requirements-git-lib.txt > {Other_Python_Project}/requirements-git-lib.txt
+cp requirements-python-lib.txt > {Other_Python_Project}/requirements-python-lib.txt
 ```
 
 ##### Modify the other program's README.md file to add the pip commands under the "Install supporting classes and libraries" section.
 
-Modify the README.md file:
-```
-vim {Other_Python_Project}/README.md
-```
+Modify the {Other_Python_Project}/README.md file:
 
-Add the following lines under the "Install supporting classes and libraries" section.
 ```
-   pip install -r requirements-git-lib.txt --target git_lib
-   pip install -r requirements-python-lib.txt --target git_lib/lib
+   pip install -r requirements-git-lib.txt --target git_lib --system
+   pip install -r requirements-python-lib.txt --target git_lib/lib --system
 ```
 
 ##### Add the general Git-lib requirements to the other program's requirements.txt file.  Remove any duplicates.
 
-Modify the requirements.txt file:
-```
-vim {Other_Python_Project}/requirements.txt
-```
+Add/modify the following lines to the {Other_Python_Project}/requirements.txt file:
 
-Add the following lines to the requirements.txt file:
 ```
 gitdb2==2.0.4
 GitPython==2.1.8
@@ -83,42 +58,15 @@ smmap2==2.0.4
 ```
 
 
-### Git Installation:
-
-Install general Git libraries and classes using git.
-  * Replace **{Python_Project}** with the baseline path of the python program.
-
-```
-cd {Python_Project}
-git clone git@github.com:deepcoder42/git-lib.git
-```
-
-Install/upgrade system modules:
-```
-cd git-lib
-sudo bash
-umask 022
-pip install -r requirements.txt --upgrade
-exit
-```
-
-Install supporting classes and libraries:
-```
-pip install -r requirements-python-lib.txt --target lib
-```
-
-
 # Testing:
 
 # Unit Testing:
-
-### Description: Testing consists of unit testing for the functions in the git_class.py program.
 
 ### Installation:
 
 Install the project using git.
   * Replace **{Python_Project}** with the baseline path of the python program.
-  * If pulling down another branch other than master then use the "--branch {Branch_Name}" option.
+  * Replace **{Branch_Name}** with the name of the Git branch being tested.  See Git Merge Request.
 
 ```
 umask 022
@@ -127,29 +75,30 @@ git clone git@github.com:deepcoder42/git-lib.git
 ```
 
 Install/upgrade system modules:
+
 ```
 cd git-lib
 sudo bash
 umask 022
-pip install -r requirements.txt --upgrade
+pip install -r requirements.txt --upgrade --system
 exit
 ```
 
 Install supporting classes and libraries:
+
 ```
-pip install -r requirements-python-lib.txt --target lib
+pip install -r requirements-python-lib.txt --target lib --system
 ```
 
-### Unit test runs:
-  * Replace **{Python_Project}** with the baseline path of the python program.
+### Testing:
 
-##### Unit testing:
 ```
 cd {Python_Project}/git-lib
 test/unit/git_class/unit_test_run.sh
 ```
 
-##### Code coverage unit testing:
+### Code Coverage:
+
 ```
 cd {Python_Project}/git-lib
 test/unit/git_class/code_coverage.sh
