@@ -24,14 +24,11 @@ else:
     import unittest
 
 # Third-party
-import mock
-import git
 import collections
 
 # Local
 sys.path.append(os.getcwd())
 import git_class
-import lib.gen_libs as gen_libs
 import version
 
 __version__ = version.__version__
@@ -44,7 +41,7 @@ class Index(object):
     Description:  Class stub holder for git.gitrepo.index.
 
     Methods:
-        __init -> Class initilization.
+        __init
 
     """
 
@@ -68,12 +65,12 @@ class Diff(Index):
     Description:  Class stub holder for git.gitrepo.index.diff.
 
     Methods:
-        __init -> Class initilization.
-        diff -> Method stub holder for git.gitrepo.index.diff().
-        remove -> Method stub holder for git.gitrepo.index.remove().
-        add -> Method stub holder for git.gitrepo.index.add().
-        checkout -> Method stub holder for git.gitrepo.index.checkout().
-        commit -> Method stub holder for git.gitrepo.index.commit().
+        __init
+        diff
+        remove
+        add
+        checkout
+        commit
 
     """
 
@@ -84,13 +81,18 @@ class Diff(Index):
         Description:  Initialization of class instance.
 
         Arguments:
-            test_type -> Determine type of test to be created.
 
         """
 
         super(Diff, self).__init__()
 
         self.test_type = test_type
+        self.arg1 = None
+        self.rm_files = None
+        self.working_tree = None
+        self.chg_files = None
+        self.force = None
+        self.msg = None
 
     def diff(self, arg1):
 
@@ -99,24 +101,24 @@ class Diff(Index):
         Description:  Method stub holder for git.gitrepo.index.diff().
 
         Arguments:
-            arg1 -> Stub holder.
 
         """
 
-        INDEX = collections.namedtuple('INDEX', 'a_path change_type')
+        self.arg1 = arg1
+        index = collections.namedtuple('INDEX', 'a_path change_type')
 
         if self.test_type == 1:
             file_list = []
-            file_list.append(INDEX('file1', 'D'))
-            file_list.append(INDEX('file2', 'M'))
+            file_list.append(index('file1', 'D'))
+            file_list.append(index('file2', 'M'))
 
         elif self.test_type == 2:
             file_list = []
-            file_list.append(INDEX('file2', 'M'))
+            file_list.append(index('file2', 'M'))
 
         elif self.test_type == 3:
             file_list = []
-            file_list.append(INDEX('file1', 'D'))
+            file_list.append(index('file1', 'D'))
 
         elif self.test_type == 4:
             file_list = []
@@ -130,10 +132,11 @@ class Diff(Index):
         Description:  Method stub holder for git.gitrepo.index.remove().
 
         Arguments:
-            rm_files -> Stub holder.
-            working_tree -> Stub holder.
 
         """
+
+        self.rm_files = rm_files
+        self.working_tree = working_tree
 
         return True
 
@@ -144,9 +147,10 @@ class Diff(Index):
         Description:  Method stub holder for git.gitrepo.index.add().
 
         Arguments:
-            chg_files -> Stub holder.
 
         """
+
+        self.chg_files = chg_files
 
         return True
 
@@ -157,10 +161,11 @@ class Diff(Index):
         Description:  Method stub holder for git.gitrepo.index.checkout().
 
         Arguments:
-            chg_files -> Stub holder.
-            force -> Stub holder.
 
         """
+
+        self.chg_files = chg_files
+        self.force = force
 
         return True
 
@@ -171,9 +176,10 @@ class Diff(Index):
         Description:  Method stub holder for git.gitrepo.index.commit().
 
         Arguments:
-            msg -> Stub holder.
 
         """
+
+        self.msg = msg
 
         return True
 
@@ -185,19 +191,19 @@ class UnitTest(unittest.TestCase):
     Description:  Class which is a representation of a unit testing.
 
     Methods:
-        setUp -> Unit testing initilization.
-        test_process_all_true_revert -> Test all if statements True w/ revert.
-        test_process_all_true_commit -> Test all if statements True w/ commit.
-        test_process_all_true2 -> Test with all if statements are True.
-        test_process_all_true -> Test with all if statements are True.
-        test_chg_files_revert -> Test with chg_files passed with revert option.
-        test_chg_files_commit -> Test with chg_files passed with commit option.
-        test_chg_files_empty2 -> Test with chg_files passed as empty list.
-        test_chg_files_empty -> Test with chg_files passed as empty list.
-        test_rm_files_commit -> Test with rm_files passed with commit option.
-        test_rm_files_revert -> Test with rm_files passed with revert option.
-        test_rm_files_empty2 -> Test with rm_files passed as empty list.
-        test_rm_files_empty -> Test with rm_files passed as empty list.
+        setUp
+        test_process_all_true_revert
+        test_process_all_true_commit
+        test_process_all_true2
+        test_process_all_true
+        test_chg_files_revert
+        test_chg_files_commit
+        test_chg_files_empty2
+        test_chg_files_empty
+        test_rm_files_commit
+        test_rm_files_revert
+        test_rm_files_empty2
+        test_rm_files_empty
 
     """
 
@@ -236,9 +242,9 @@ class UnitTest(unittest.TestCase):
 
         """
 
-        GIT = collections.namedtuple('GIT', 'index')
-        DIFF = Diff(1)
-        self.gitr.gitrepo = GIT(DIFF)
+        giti = collections.namedtuple('GIT', 'index')
+        diff = Diff(1)
+        self.gitr.gitrepo = giti(diff)
 
         self.gitr.process_dirty("revert")
 
@@ -255,9 +261,9 @@ class UnitTest(unittest.TestCase):
 
         """
 
-        GIT = collections.namedtuple('GIT', 'index')
-        DIFF = Diff(1)
-        self.gitr.gitrepo = GIT(DIFF)
+        giti = collections.namedtuple('GIT', 'index')
+        diff = Diff(1)
+        self.gitr.gitrepo = giti(diff)
 
         self.gitr.process_dirty("commit")
 
@@ -274,9 +280,9 @@ class UnitTest(unittest.TestCase):
 
         """
 
-        GIT = collections.namedtuple('GIT', 'index')
-        DIFF = Diff(4)
-        self.gitr.gitrepo = GIT(DIFF)
+        giti = collections.namedtuple('GIT', 'index')
+        diff = Diff(4)
+        self.gitr.gitrepo = giti(diff)
 
         self.gitr.process_dirty()
 
@@ -293,9 +299,9 @@ class UnitTest(unittest.TestCase):
 
         """
 
-        GIT = collections.namedtuple('GIT', 'index')
-        DIFF = Diff(1)
-        self.gitr.gitrepo = GIT(DIFF)
+        giti = collections.namedtuple('GIT', 'index')
+        diff = Diff(1)
+        self.gitr.gitrepo = giti(diff)
 
         self.gitr.process_dirty()
 
@@ -312,9 +318,9 @@ class UnitTest(unittest.TestCase):
 
         """
 
-        GIT = collections.namedtuple('GIT', 'index')
-        DIFF = Diff(2)
-        self.gitr.gitrepo = GIT(DIFF)
+        giti = collections.namedtuple('GIT', 'index')
+        diff = Diff(2)
+        self.gitr.gitrepo = giti(diff)
 
         self.gitr.process_dirty("revert")
 
@@ -330,9 +336,9 @@ class UnitTest(unittest.TestCase):
 
         """
 
-        GIT = collections.namedtuple('GIT', 'index')
-        DIFF = Diff(2)
-        self.gitr.gitrepo = GIT(DIFF)
+        giti = collections.namedtuple('GIT', 'index')
+        diff = Diff(2)
+        self.gitr.gitrepo = giti(diff)
 
         self.gitr.process_dirty("commit")
 
@@ -348,9 +354,9 @@ class UnitTest(unittest.TestCase):
 
         """
 
-        GIT = collections.namedtuple('GIT', 'index')
-        DIFF = Diff(2)
-        self.gitr.gitrepo = GIT(DIFF)
+        giti = collections.namedtuple('GIT', 'index')
+        diff = Diff(2)
+        self.gitr.gitrepo = giti(diff)
 
         self.gitr.process_dirty()
 
@@ -366,9 +372,9 @@ class UnitTest(unittest.TestCase):
 
         """
 
-        GIT = collections.namedtuple('GIT', 'index')
-        DIFF = Diff(4)
-        self.gitr.gitrepo = GIT(DIFF)
+        giti = collections.namedtuple('GIT', 'index')
+        diff = Diff(4)
+        self.gitr.gitrepo = giti(diff)
 
         self.gitr.process_dirty()
 
@@ -384,9 +390,9 @@ class UnitTest(unittest.TestCase):
 
         """
 
-        GIT = collections.namedtuple('GIT', 'index')
-        DIFF = Diff(3)
-        self.gitr.gitrepo = GIT(DIFF)
+        giti = collections.namedtuple('GIT', 'index')
+        diff = Diff(3)
+        self.gitr.gitrepo = giti(diff)
 
         self.gitr.process_dirty("commit")
 
@@ -402,9 +408,9 @@ class UnitTest(unittest.TestCase):
 
         """
 
-        GIT = collections.namedtuple('GIT', 'index')
-        DIFF = Diff(3)
-        self.gitr.gitrepo = GIT(DIFF)
+        giti = collections.namedtuple('GIT', 'index')
+        diff = Diff(3)
+        self.gitr.gitrepo = giti(diff)
 
         self.gitr.process_dirty("revert")
 
@@ -420,9 +426,9 @@ class UnitTest(unittest.TestCase):
 
         """
 
-        GIT = collections.namedtuple('GIT', 'index')
-        DIFF = Diff(3)
-        self.gitr.gitrepo = GIT(DIFF)
+        giti = collections.namedtuple('GIT', 'index')
+        diff = Diff(3)
+        self.gitr.gitrepo = giti(diff)
 
         self.gitr.process_dirty()
 
@@ -438,9 +444,9 @@ class UnitTest(unittest.TestCase):
 
         """
 
-        GIT = collections.namedtuple('GIT', 'index')
-        DIFF = Diff(4)
-        self.gitr.gitrepo = GIT(DIFF)
+        giti = collections.namedtuple('GIT', 'index')
+        diff = Diff(4)
+        self.gitr.gitrepo = giti(diff)
 
         self.gitr.process_dirty()
 

@@ -24,14 +24,12 @@ else:
     import unittest
 
 # Third-party
-import mock
-import git
 import collections
+import mock
 
 # Local
 sys.path.append(os.getcwd())
 import git_class
-import lib.gen_libs as gen_libs
 import version
 
 __version__ = version.__version__
@@ -44,7 +42,7 @@ class Index(object):
     Description:  Class stub holder for git.gitrepo.index.
 
     Methods:
-        __init -> Class initilization.
+        __init
 
     """
 
@@ -68,9 +66,9 @@ class Diff(Index):
     Description:  Class stub holder for git.gitrepo.index.diff.
 
     Methods:
-        __init -> Class initilization.
-        add -> Method stub holder for git.gitrepo.index.add().
-        commit -> Method stub holder for git.gitrepo.index.commit().
+        __init
+        add
+        commit
 
     """
 
@@ -85,6 +83,8 @@ class Diff(Index):
         """
 
         super(Diff, self).__init__()
+        self.new_files = None
+        self.msg = None
 
     def add(self, new_files):
 
@@ -93,9 +93,10 @@ class Diff(Index):
         Description:  Method stub holder for git.gitrepo.index.add().
 
         Arguments:
-            new_files -> Stub holder.
 
         """
+
+        self.new_files = new_files
 
         return True
 
@@ -106,9 +107,10 @@ class Diff(Index):
         Description:  Method stub holder for git.gitrepo.index.commit().
 
         Arguments:
-            msg -> Stub holder.
 
         """
+
+        self.msg = msg
 
         return True
 
@@ -120,13 +122,13 @@ class UnitTest(unittest.TestCase):
     Description:  Class which is a representation of a unit testing.
 
     Methods:
-        setUp -> Unit testing initilization.
-        test_process_remove_dir -> Test with removal of directory.
-        test_process_add_option -> Test with add option passed.
-        test_process_remove_option -> Test with remove option passed.
-        test_process_newfiles_list -> Test with new_files list set.
-        test_process_empty_list2 -> Test with empty list passed.
-        test_process_empty_list -> Test with empty list passed.
+        setUp
+        test_process_remove_dir
+        test_process_add_option
+        test_process_remove_option
+        test_process_newfiles_list
+        test_process_empty_list2
+        test_process_empty_list
 
     """
 
@@ -168,9 +170,9 @@ class UnitTest(unittest.TestCase):
         mock_shutil.rmtree.return_value = True
         mock_os.path.isdir.return_value = True
 
-        GIT = collections.namedtuple('GIT', self.git_set_data)
-        DIFF = Diff()
-        self.gitr.gitrepo = GIT(DIFF, self.new_list1)
+        giti = collections.namedtuple('GIT', self.git_set_data)
+        diff = Diff()
+        self.gitr.gitrepo = giti(diff, self.new_list1)
         self.gitr.new_files = self.new_list2
 
         self.gitr.process_untracked("remove")
@@ -192,9 +194,9 @@ class UnitTest(unittest.TestCase):
         mock_lib.rm_file.return_value = True
         mock_os.path.isdir.return_value = False
 
-        GIT = collections.namedtuple('GIT', self.git_set_data)
-        DIFF = Diff()
-        self.gitr.gitrepo = GIT(DIFF, self.new_list1)
+        giti = collections.namedtuple('GIT', self.git_set_data)
+        diff = Diff()
+        self.gitr.gitrepo = giti(diff, self.new_list1)
         self.gitr.new_files = self.new_list2
 
         self.gitr.process_untracked("add")
@@ -216,9 +218,9 @@ class UnitTest(unittest.TestCase):
         mock_lib.rm_file.return_value = True
         mock_os.path.isdir.return_value = False
 
-        GIT = collections.namedtuple('GIT', self.git_set_data)
-        DIFF = Diff()
-        self.gitr.gitrepo = GIT(DIFF, self.new_list1)
+        giti = collections.namedtuple('GIT', self.git_set_data)
+        diff = Diff()
+        self.gitr.gitrepo = giti(diff, self.new_list1)
         self.gitr.new_files = self.new_list2
 
         self.gitr.process_untracked("remove")
@@ -240,9 +242,9 @@ class UnitTest(unittest.TestCase):
         mock_lib.rm_file.return_value = True
         mock_os.path.isdir.return_value = False
 
-        GIT = collections.namedtuple('GIT', self.git_set_data)
-        DIFF = Diff()
-        self.gitr.gitrepo = GIT(DIFF, self.new_list1)
+        giti = collections.namedtuple('GIT', self.git_set_data)
+        diff = Diff()
+        self.gitr.gitrepo = giti(diff, self.new_list1)
         self.gitr.new_files = self.new_list2
 
         self.gitr.process_untracked()
@@ -264,9 +266,9 @@ class UnitTest(unittest.TestCase):
         mock_lib.rm_file.return_value = True
         mock_os.path.isdir.return_value = False
 
-        GIT = collections.namedtuple('GIT', self.git_set_data)
-        DIFF = Diff()
-        self.gitr.gitrepo = GIT(DIFF, self.new_list2)
+        giti = collections.namedtuple('GIT', self.git_set_data)
+        diff = Diff()
+        self.gitr.gitrepo = giti(diff, self.new_list2)
 
         self.gitr.process_untracked()
 
@@ -282,9 +284,9 @@ class UnitTest(unittest.TestCase):
 
         """
 
-        GIT = collections.namedtuple('GIT', self.git_set_data)
-        DIFF = Diff()
-        self.gitr.gitrepo = GIT(DIFF, self.new_list1)
+        giti = collections.namedtuple('GIT', self.git_set_data)
+        diff = Diff()
+        self.gitr.gitrepo = giti(diff, self.new_list1)
 
         self.gitr.process_untracked()
 

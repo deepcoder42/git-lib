@@ -24,14 +24,12 @@ else:
     import unittest
 
 # Third-party
-import mock
-import git
 import collections
+import git
 
 # Local
 sys.path.append(os.getcwd())
 import git_class
-import lib.gen_libs as gen_libs
 import version
 
 __version__ = version.__version__
@@ -44,11 +42,11 @@ def checkout2(branch):
     Description:  Method stub holder for git.Repo.git.checkout().
 
     Arguments:
-        branch -> Stub holder.
 
     """
 
-    raise git.exc.GitCommandError("git", 128, "stderr")
+    if branch:
+        raise git.exc.GitCommandError("git", 128, "stderr")
 
 
 def checkout(branch):
@@ -58,11 +56,11 @@ def checkout(branch):
     Description:  Method stub holder for git.Repo.git.checkout().
 
     Arguments:
-        branch -> Stub holder.
 
     """
 
-    pass
+    if branch:
+        return True
 
 
 class UnitTest(unittest.TestCase):
@@ -72,10 +70,10 @@ class UnitTest(unittest.TestCase):
     Description:  Class which is a representation of a unit testing.
 
     Methods:
-        setUp -> Unit testing initilization.
-        test_git_co_branch -> Test with branch parameter passed.
-        test_git_co_exception -> Test with raised exception.
-        test_git_co_true -> Test with successful checkout call.
+        setUp
+        test_git_co_branch
+        test_git_co_exception
+        test_git_co_true
 
     """
 
@@ -108,8 +106,8 @@ class UnitTest(unittest.TestCase):
 
         """
 
-        GIT = collections.namedtuple('GIT', 'checkout')
-        self.gitr.gitcmd = GIT(checkout)
+        giti = collections.namedtuple('GIT', 'checkout')
+        self.gitr.gitcmd = giti(checkout)
 
         status, msg = self.gitr.git_co(branch="New_Branch")
         self.assertEqual((status, msg), (True, {}))
@@ -124,8 +122,8 @@ class UnitTest(unittest.TestCase):
 
         """
 
-        GIT = collections.namedtuple('GIT', 'checkout')
-        self.gitr.gitcmd = GIT(checkout2)
+        giti = collections.namedtuple('GIT', 'checkout')
+        self.gitr.gitcmd = giti(checkout2)
 
         status, msg = self.gitr.git_co()
         self.assertEqual((status, msg["status"]), (False, 128))
@@ -140,8 +138,8 @@ class UnitTest(unittest.TestCase):
 
         """
 
-        GIT = collections.namedtuple('GIT', 'checkout')
-        self.gitr.gitcmd = GIT(checkout)
+        giti = collections.namedtuple('GIT', 'checkout')
+        self.gitr.gitcmd = giti(checkout)
 
         status, msg = self.gitr.git_co()
         self.assertEqual((status, msg), (True, {}))

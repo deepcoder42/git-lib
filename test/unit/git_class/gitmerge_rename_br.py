@@ -24,45 +24,43 @@ else:
     import unittest
 
 # Third-party
-import mock
-import git
 import collections
+import git
 
 # Local
 sys.path.append(os.getcwd())
 import git_class
-import lib.gen_libs as gen_libs
 import version
 
 __version__ = version.__version__
 
 
-def branch2(branch):
+def branch2(brch):
 
     """Function:  fetch2
 
     Description:  Method stub holder for git.Repo.git.branch().
 
     Arguments:
-        branch -> Stub holder.
 
     """
 
-    raise git.exc.GitCommandError("git", 128, "stderr")
+    if brch:
+        raise git.exc.GitCommandError("git", 128, "stderr")
 
 
-def branch(branch):
+def branch(brch):
 
     """Function:  fetch
 
     Description:  Method stub holder for git.Repo.git.branch().
 
     Arguments:
-        branch -> Stub holder.
 
     """
 
-    pass
+    if brch:
+        return True
 
 
 class UnitTest(unittest.TestCase):
@@ -72,10 +70,10 @@ class UnitTest(unittest.TestCase):
     Description:  Class which is a representation of a unit testing.
 
     Methods:
-        setUp -> Unit testing initilization.
-        test_rename_br_branch -> Test with branch parameter passed.
-        test_rename_br_exception -> Test with raised exception.
-        test_rename_br_true -> Test with successful branch call.
+        setUp
+        test_rename_br_branch
+        test_rename_br_exception
+        test_rename_br_true
 
     """
 
@@ -108,8 +106,8 @@ class UnitTest(unittest.TestCase):
 
         """
 
-        GIT = collections.namedtuple('GIT', 'branch')
-        self.gitr.gitcmd = GIT(branch)
+        giti = collections.namedtuple('GIT', 'branch')
+        self.gitr.gitcmd = giti(branch)
 
         status, msg = self.gitr.rename_br(branch="New_Branch")
         self.assertEqual((status, msg), (True, {}))
@@ -124,8 +122,8 @@ class UnitTest(unittest.TestCase):
 
         """
 
-        GIT = collections.namedtuple('GIT', 'branch')
-        self.gitr.gitcmd = GIT(branch2)
+        giti = collections.namedtuple('GIT', 'branch')
+        self.gitr.gitcmd = giti(branch2)
 
         status, msg = self.gitr.rename_br()
         self.assertEqual((status, msg["status"]), (False, 128))
@@ -140,8 +138,8 @@ class UnitTest(unittest.TestCase):
 
         """
 
-        GIT = collections.namedtuple('GIT', 'branch')
-        self.gitr.gitcmd = GIT(branch)
+        giti = collections.namedtuple('GIT', 'branch')
+        self.gitr.gitcmd = giti(branch)
 
         status, msg = self.gitr.rename_br()
         self.assertEqual((status, msg), (True, {}))

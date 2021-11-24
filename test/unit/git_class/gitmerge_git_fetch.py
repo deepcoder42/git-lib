@@ -24,14 +24,12 @@ else:
     import unittest
 
 # Third-party
-import mock
-import git
 import collections
+import git
 
 # Local
 sys.path.append(os.getcwd())
 import git_class
-import lib.gen_libs as gen_libs
 import version
 
 __version__ = version.__version__
@@ -83,10 +81,10 @@ class UnitTest(unittest.TestCase):
     Description:  Class which is a representation of a unit testing.
 
     Methods:
-        setUp -> Unit testing initilization.
-        test_git_fetch_2 -> Test with raised exception - 2 status.
-        test_git_fetch_128 -> Test with raised exception - 128 status.
-        test_git_fetch_true -> Test with successful ls_remote call.
+        setUp
+        test_git_fetch_2
+        test_git_fetch_128
+        test_git_fetch_true
 
     """
 
@@ -119,8 +117,8 @@ class UnitTest(unittest.TestCase):
 
         """
 
-        GIT = collections.namedtuple('GIT', 'fetch')
-        self.gitr.gitcmd = GIT(fetch3)
+        giti = collections.namedtuple('GIT', 'fetch')
+        self.gitr.gitcmd = giti(fetch3)
 
         status, msg = self.gitr.git_fetch()
         self.assertEqual((status, msg["status"]), (False, 2))
@@ -135,8 +133,8 @@ class UnitTest(unittest.TestCase):
 
         """
 
-        GIT = collections.namedtuple('GIT', 'fetch')
-        self.gitr.gitcmd = GIT(fetch2)
+        giti = collections.namedtuple('GIT', 'fetch')
+        self.gitr.gitcmd = giti(fetch2)
 
         status, msg = self.gitr.git_fetch()
         self.assertEqual((status, msg["status"]), (False, 128))
@@ -151,8 +149,8 @@ class UnitTest(unittest.TestCase):
 
         """
 
-        GIT = collections.namedtuple('GIT', 'fetch')
-        self.gitr.gitcmd = GIT(fetch)
+        giti = collections.namedtuple('GIT', 'fetch')
+        self.gitr.gitcmd = giti(fetch)
 
         status, msg = self.gitr.git_fetch()
         self.assertEqual((status, msg), (True, {}))

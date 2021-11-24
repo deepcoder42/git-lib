@@ -24,14 +24,12 @@ else:
     import unittest
 
 # Third-party
-import mock
-import git
 import collections
+import git
 
 # Local
 sys.path.append(os.getcwd())
 import git_class
-import lib.gen_libs as gen_libs
 import version
 
 __version__ = version.__version__
@@ -44,12 +42,11 @@ def rev_parse2(arg1, branch):
     Description:  Method stub holder for git.Repo.git.rev_parse().
 
     Arguments:
-        arg1 -> Stub holder.
-        branch -> Stub holder.
 
     """
 
-    raise git.exc.GitCommandError('git', 128)
+    if arg1 and branch:
+        raise git.exc.GitCommandError('git', 128)
 
 
 def rev_parse(arg1, branch):
@@ -59,12 +56,11 @@ def rev_parse(arg1, branch):
     Description:  Method stub holder for git.Repo.git.rev_parse().
 
     Arguments:
-        arg1 -> Stub holder.
-        branch => Stub holder.
 
     """
 
-    pass
+    if arg1 and branch:
+        return True
 
 
 class UnitTest(unittest.TestCase):
@@ -74,9 +70,9 @@ class UnitTest(unittest.TestCase):
     Description:  Class which is a representation of a unit testing.
 
     Methods:
-        setUp -> Unit testing initilization.
-        test_is_remote_branch_false -> Test with exception from rev_parse call.
-        test_is_remote_branch_true -> Test with successful ls_remote call.
+        setUp
+        test_is_remote_branch_false
+        test_is_remote_branch_true
 
     """
 
@@ -109,8 +105,8 @@ class UnitTest(unittest.TestCase):
 
         """
 
-        GIT = collections.namedtuple('GIT', 'rev_parse')
-        self.gitr.gitcmd = GIT(rev_parse2)
+        giti = collections.namedtuple('GIT', 'rev_parse')
+        self.gitr.gitcmd = giti(rev_parse2)
 
         self.assertFalse(self.gitr.is_remote_branch("Branch"))
 
@@ -124,8 +120,8 @@ class UnitTest(unittest.TestCase):
 
         """
 
-        GIT = collections.namedtuple('GIT', 'rev_parse')
-        self.gitr.gitcmd = GIT(rev_parse)
+        giti = collections.namedtuple('GIT', 'rev_parse')
+        self.gitr.gitcmd = giti(rev_parse)
 
         self.assertTrue(self.gitr.is_remote_branch("Branch"))
 

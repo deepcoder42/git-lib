@@ -24,13 +24,10 @@ else:
     import unittest
 
 # Third-party
-import mock
-import collections
 
 # Local
 sys.path.append(os.getcwd())
 import git_class
-import lib.gen_libs as gen_libs
 import version
 
 __version__ = version.__version__
@@ -43,7 +40,7 @@ class ActiveBranch(object):
     Description:  Class stub holder for git.gitrepo.active_branch.
 
     Methods:
-        __init -> Class initilization.
+        __init
 
     """
 
@@ -67,7 +64,7 @@ class Commit1(object):
     Description:  Class stub holder for git.gitrepo.active_branch.commit.
 
     Methods:
-        __init -> Class initilization.
+        __init
 
     """
 
@@ -91,7 +88,7 @@ class Hexsha1(object):
     Description:  Class stub holder - git.gitrepo.active_branch.commit.hexsha.
 
     Methods:
-        __init -> Class initilization.
+        __init
 
     """
 
@@ -115,8 +112,8 @@ class Checkout1(object):
     Description:  Class stub holder for git.gitrepo.Git.checkout.
 
     Methods:
-        __init -> Class initilization.
-        checkout -> Method stub holder for git.gitrepo.Git.checkout().
+        __init
+        checkout
 
     """
 
@@ -139,7 +136,7 @@ class Checkout1(object):
         Description:  Method stub holder for git.gitrepo.Git.checkout().
 
         Arguments:
-            branch -> Stub holder for branch name or hexi-Commit ID.
+            branch
 
         """
 
@@ -153,8 +150,8 @@ class UnitTest(unittest.TestCase):
     Description:  Class which is a representation of a unit testing.
 
     Methods:
-        setUp -> Unit testing initilization.
-        test_detach_head -> Test with default values settings.
+        setUp
+        test_detach_head
 
     """
 

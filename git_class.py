@@ -2,7 +2,8 @@
 
 """Program:  git_class.py
 
-    Description:  Class that has class definitions for git repository.
+    Description:  Class that has class definitions and methods for connecting
+        to and using local and remote git repositories.
 
     Classes:
         GitClass
@@ -36,10 +37,10 @@ class GitClass(object):
         git repository and git command line instances.
 
     Methods:
-        __init__ -> Class instance initilization.
-        create_repo -> Create a git.Repo instance.
-        create_cmd -> Create a git.Repo.git command line instance.
-        create_init -> Create a git.Repo.init instance.
+        __init__
+        create_repo
+        create_cmd
+        create_init
 
     """
 
@@ -63,7 +64,8 @@ class GitClass(object):
 
         """Method:  create_repo
 
-        Description:  Create a git.Repo instance.
+        Description:  Create a git instance to an existing local git
+            repository.
 
         Arguments:
             repo_dir -> Git repository path name.
@@ -79,7 +81,9 @@ class GitClass(object):
 
         """Method:  create_cmd
 
-        Description:  Create a git.Repo.git command line instance.
+        Description:  Create a git command line instance.
+
+        Note:  An existing git instance must already been initialized.
 
         Arguments:
 
@@ -92,8 +96,9 @@ class GitClass(object):
 
         """Method:  create_init
 
-        Description:  Create a git.Repo.init instance to an existing git
-            repository or creates a new git repository if one does not exist.
+        Description:  Create an instance to an existing git repository or
+            creates a new git repository and directory if the repository
+            directory does not exist.
 
         Arguments:
             repo_dir -> Git repository path name.
@@ -110,32 +115,32 @@ class GitMerge(GitClass):
 
     """Class:  GitMerge
 
-    Description:  Class that handles operations of merging a git repository
-        with a remote git repository.
+    Description:  Class that handles operations of merging a non-local git
+        repository with a remote git repository.
 
     Methods:
-        __init__ -> Class instance initilization.
-        create_gitrepo -> Creates git repo and git command line instances.
-        set_remote -> Checks to see if remote git repository exists.
-        is_remote -> Checks to see if remote git repository exists.
-        process_dirty -> Process any dirty files.
-        process_untracked -> Process any untracked files.
-        get_dirty -> Find any dirty (i.e. removed or modified) files.
-        get_untracked -> Find any untracked (i.e. new) files.
-        is_dirty -> Check to see if there is any dirty objects.
-        is_untracked -> Check to see if there is any new objects not tracked.
-        git_fetch -> Fetch from the remote Git repository the master branch.
-        rename_br -> Rename the current branch to a new name.
-        git_co -> Git checkout to another branch.
-        priority_merge -> Merge of branch with priority of existing branch.
-        git_pu -> Git push to remote respository.
-        commits_diff ->  Compares 2 branches & returns number of commits diff.
-        is_commits_ahead -> Gets diff - local branch is ahead of remote branch.
-        is_commits_behind -> Gets diff - local branch is behind remote branch.
-        is_remote_branch -> Determines if the branch exists in remote git repo.
-        detach_head -> Checkouts the head to the latest commit ID.
-        get_br_name -> Return the current branch name.
-        remove_branch -> Remove branch name passed to method.
+        __init__
+        create_gitrepo
+        set_remote
+        is_remote
+        process_dirty
+        process_untracked
+        get_dirty
+        get_untracked
+        is_dirty
+        is_untracked
+        git_fetch
+        rename_br
+        git_co
+        priority_merge
+        git_pu
+        commits_diff
+        is_commits_ahead
+        is_commits_behind
+        is_remote_branch
+        detach_head
+        get_br_name
+        remove_branch
 
     """
 
@@ -146,11 +151,11 @@ class GitMerge(GitClass):
         Description:  Initialization of an instance of the GitMerge class.
 
         Arguments:
-            repo_name -> Name of repository.
-            git_dir -> Directory path to the local git repo.
+            repo_name -> Name of git repository.
+            git_dir -> Directory path to the local git repository.
             url -> URL to the remote git repository.
             branch -> Name of branch at remote to be merged with.
-            mod_branch -> Name of branch to be merged into remote.
+            mod_branch -> Name of temporary branch to be merged into remote.
 
         """
 
@@ -200,7 +205,7 @@ class GitMerge(GitClass):
         Description:  Checks to see if remote git repository exists.
 
         Arguments:
-            (output) True|False -> Whether the directory is a git repository.
+            (output) True|False -> Is URL a remote git repository.
 
         """
 
@@ -433,9 +438,8 @@ class GitMerge(GitClass):
 
         """Function:  priority_merge
 
-        Description:  Merge of branch with priority of existing branch.
-
-        NOTE:  The branch will have priority over the existing branch.
+        Description:  Merge of a new branch with an existing branch, with
+            the priority on the new branch.
 
         Arguments:
             (input) branch -> Name of branch to merge with current branch.
@@ -648,11 +652,11 @@ class GitConfig(GitClass):
     Description:  Class that handles configuration of the local git repository.
 
     Methods:
-        __init__ -> Class instance initilization.
-        get_email -> Return the email address bound to the git repository.
-        get_user -> Return the user name bound to the git repository.
-        set_email -> Set the email address for the local git repository.
-        set_user -> Set the user name for the local git repository.
+        __init__
+        get_email
+        get_user
+        set_email
+        set_user
 
     """
 

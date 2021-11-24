@@ -24,13 +24,10 @@ else:
     import unittest
 
 # Third-party
-import mock
-import collections
 
 # Local
 sys.path.append(os.getcwd())
 import git_class
-import lib.gen_libs as gen_libs
 import version
 
 __version__ = version.__version__
@@ -43,7 +40,7 @@ class ActiveBranch(object):
     Description:  Class stub holder for git.gitrepo.active_branch.
 
     Methods:
-        __init -> Class initilization.
+        __init
 
     """
 
@@ -67,7 +64,7 @@ class Name1(object):
     Description:  Class stub holder for git.gitrepo.active_branch.name.
 
     Methods:
-        __init -> Class initilization.
+        __init
 
     """
 
@@ -91,8 +88,8 @@ class UnitTest(unittest.TestCase):
     Description:  Class which is a representation of a unit testing.
 
     Methods:
-        setUp -> Unit testing initilization.
-        test_get_br_name -> Test with default values settings.
+        setUp
+        test_get_br_name
 
     """
 

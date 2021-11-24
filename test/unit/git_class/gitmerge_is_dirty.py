@@ -24,13 +24,11 @@ else:
     import unittest
 
 # Third-party
-import mock
 import collections
 
 # Local
 sys.path.append(os.getcwd())
 import git_class
-import lib.gen_libs as gen_libs
 import version
 
 __version__ = version.__version__
@@ -69,9 +67,9 @@ class UnitTest(unittest.TestCase):
     Description:  Class which is a representation of a unit testing.
 
     Methods:
-        setUp -> Unit testing initilization.
-        test_is_dirty_false -> Test with is_dirty returns False.
-        test_is_dirty_true -> Test with is_dirty returns True.
+        setUp
+        test_is_dirty_false
+        test_is_dirty_true
 
     """
 
@@ -104,8 +102,8 @@ class UnitTest(unittest.TestCase):
 
         """
 
-        GIT = collections.namedtuple('GIT', 'is_dirty')
-        self.gitr.gitrepo = GIT(is_dirty2)
+        giti = collections.namedtuple('GIT', 'is_dirty')
+        self.gitr.gitrepo = giti(is_dirty2)
 
         self.assertFalse(self.gitr.is_dirty())
 
@@ -119,8 +117,8 @@ class UnitTest(unittest.TestCase):
 
         """
 
-        GIT = collections.namedtuple('GIT', 'is_dirty')
-        self.gitr.gitrepo = GIT(is_dirty)
+        giti = collections.namedtuple('GIT', 'is_dirty')
+        self.gitr.gitrepo = giti(is_dirty)
 
         self.assertTrue(self.gitr.is_dirty())
 

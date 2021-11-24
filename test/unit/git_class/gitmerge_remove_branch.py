@@ -25,12 +25,10 @@ else:
 
 # Third-party
 import mock
-import collections
 
 # Local
 sys.path.append(os.getcwd())
 import git_class
-import lib.gen_libs as gen_libs
 import version
 
 __version__ = version.__version__
@@ -43,7 +41,7 @@ class DeleteHead(object):
     Description:  Class stub holder for git.gitrepo.delete_head.
 
     Methods:
-        delete_head -> Stub holder for git.gitrepo.delete_head method.
+        delete_head
 
     """
 
@@ -57,7 +55,8 @@ class DeleteHead(object):
 
         """
 
-        pass
+        if branch:
+            return True
 
 
 class UnitTest(unittest.TestCase):
@@ -67,10 +66,10 @@ class UnitTest(unittest.TestCase):
     Description:  Class which is a representation of a unit testing.
 
     Methods:
-        setUp -> Unit testing initilization.
-        test_no_chk_option -> Test with no_chk option set to True.
-        test_other_branch -> Test with removing another branch.
-        test_current_branch -> Test with removing current branch.
+        setUp
+        test_no_chk_option
+        test_other_branch
+        test_current_branch
 
     """
 

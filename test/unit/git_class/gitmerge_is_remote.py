@@ -24,14 +24,12 @@ else:
     import unittest
 
 # Third-party
-import mock
-import git
 import collections
+import git
 
 # Local
 sys.path.append(os.getcwd())
 import git_class
-import lib.gen_libs as gen_libs
 import version
 
 __version__ = version.__version__
@@ -44,11 +42,11 @@ def ls_remote2(arg1):
     Description:  Method stub holder for git.Repo.git.ls_remote().
 
     Arguments:
-        arg1 -> Stub holder for URL address.
 
     """
 
-    raise git.exc.GitCommandError('git', 128)
+    if arg1:
+        raise git.exc.GitCommandError('git', 128)
 
 
 def ls_remote(arg1):
@@ -58,11 +56,11 @@ def ls_remote(arg1):
     Description:  Method stub holder for git.Repo.git.ls_remote().
 
     Arguments:
-        arg1 -> Stub holder for URL address.
 
     """
 
-    pass
+    if arg1:
+        return True
 
 
 class UnitTest(unittest.TestCase):
@@ -72,9 +70,9 @@ class UnitTest(unittest.TestCase):
     Description:  Class which is a representation of a unit testing.
 
     Methods:
-        setUp -> Unit testing initilization.
-        test_is_remote_false -> Test with exception raised from ls_remote call.
-        test_is_remote_true -> Test with successful ls_remote call.
+        setUp
+        test_is_remote_false
+        test_is_remote_true
 
     """
 
@@ -107,8 +105,8 @@ class UnitTest(unittest.TestCase):
 
         """
 
-        GIT = collections.namedtuple('GIT', 'ls_remote')
-        self.gitr.gitcmd = GIT(ls_remote2)
+        giti = collections.namedtuple('GIT', 'ls_remote')
+        self.gitr.gitcmd = giti(ls_remote2)
 
         self.assertFalse(self.gitr.is_remote())
 
@@ -122,8 +120,8 @@ class UnitTest(unittest.TestCase):
 
         """
 
-        GIT = collections.namedtuple('GIT', 'ls_remote')
-        self.gitr.gitcmd = GIT(ls_remote)
+        giti = collections.namedtuple('GIT', 'ls_remote')
+        self.gitr.gitcmd = giti(ls_remote)
 
         self.assertTrue(self.gitr.is_remote())
 

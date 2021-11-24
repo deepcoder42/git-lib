@@ -29,7 +29,6 @@ import mock
 # Local
 sys.path.append(os.getcwd())
 import git_class
-import lib.gen_libs as gen_libs
 import version
 
 __version__ = version.__version__
@@ -42,9 +41,9 @@ class UnitTest(unittest.TestCase):
     Description:  Class which is a representation of a unit testing.
 
     Methods:
-        setUp -> Unit testing initilization.
-        test_default_arg -> Test with using default arguments.
-        test_repodir_arg -> Test with passing repo_dir argument.
+        setUp
+        test_default_arg
+        test_repodir_arg
 
     """
 

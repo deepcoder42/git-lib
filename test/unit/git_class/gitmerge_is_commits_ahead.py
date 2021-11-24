@@ -25,13 +25,10 @@ else:
 
 # Third-party
 import mock
-import git
-import collections
 
 # Local
 sys.path.append(os.getcwd())
 import git_class
-import lib.gen_libs as gen_libs
 import version
 
 __version__ = version.__version__
@@ -44,10 +41,10 @@ class UnitTest(unittest.TestCase):
     Description:  Class which is a representation of a unit testing.
 
     Methods:
-        setUp -> Unit testing initilization.
-        test_commitsdiff_zero -> Test with zero commits difference.
-        test_commitsdiff_one -> Test with one commit difference.
-        test_commitsdiff_two -> Test with two commits difference.
+        setUp
+        test_commitsdiff_zero
+        test_commitsdiff_one
+        test_commitsdiff_two
 
     """
 

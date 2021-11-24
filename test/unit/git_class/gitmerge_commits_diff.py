@@ -24,14 +24,11 @@ else:
     import unittest
 
 # Third-party
-import mock
-import git
 import collections
 
 # Local
 sys.path.append(os.getcwd())
 import git_class
-import lib.gen_libs as gen_libs
 import version
 
 __version__ = version.__version__
@@ -44,8 +41,8 @@ class Commits(object):
     Description:  Class stub holder for git.gitrepo.iter_commits.
 
     Methods:
-        __init -> Class initilization.
-        iter_commits -> Method stub holder for git.gitrepo.iter_commits().
+        __init
+        iter_commits
 
     """
 
@@ -56,11 +53,11 @@ class Commits(object):
         Description:  Initialization of class instance.
 
         Arguments:
-            test_type -> Determine type of test to be created.
 
         """
 
         self.test_type = test_type
+        self.data_str = None
 
     def iter_commits(self, data_str):
 
@@ -69,20 +66,20 @@ class Commits(object):
         Description:  Method stub holder for git.gitrepo.iter_commits().
 
         Arguments:
-            data_str -> Stub holder.
 
         """
 
-        INDEX = collections.namedtuple('INDEX', 'commits')
+        self.data_str = data_str
+        index = collections.namedtuple('INDEX', 'commits')
 
         if self.test_type == 1:
             commit_list = []
-            commit_list.append(INDEX('file1'))
-            commit_list.append(INDEX('file2'))
+            commit_list.append(index('file1'))
+            commit_list.append(index('file2'))
 
         elif self.test_type == 2:
             commit_list = []
-            commit_list.append(INDEX('file2'))
+            commit_list.append(index('file2'))
 
         elif self.test_type == 3:
             commit_list = []
@@ -97,10 +94,10 @@ class UnitTest(unittest.TestCase):
     Description:  Class which is a representation of a unit testing.
 
     Methods:
-        setUp -> Unit testing initilization.
-        test_commitsdiff_zero -> Test with zero commits difference.
-        test_commitsdiff_one -> Test with one commit difference.
-        test_commitsdiff_two -> Test with two commits difference.
+        setUp
+        test_commitsdiff_zero
+        test_commitsdiff_one
+        test_commitsdiff_two
 
     """
 
@@ -133,9 +130,9 @@ class UnitTest(unittest.TestCase):
 
         """
 
-        GIT = collections.namedtuple('GIT', 'iter_commits')
-        COMMIT = Commits(3).iter_commits
-        self.gitr.gitrepo = GIT(COMMIT)
+        giti = collections.namedtuple('GIT', 'iter_commits')
+        commit = Commits(3).iter_commits
+        self.gitr.gitrepo = giti(commit)
 
         self.assertEqual(self.gitr.commits_diff("Data"), 0)
 
@@ -149,9 +146,9 @@ class UnitTest(unittest.TestCase):
 
         """
 
-        GIT = collections.namedtuple('GIT', 'iter_commits')
-        COMMIT = Commits(2).iter_commits
-        self.gitr.gitrepo = GIT(COMMIT)
+        giti = collections.namedtuple('GIT', 'iter_commits')
+        commit = Commits(2).iter_commits
+        self.gitr.gitrepo = giti(commit)
 
         self.assertEqual(self.gitr.commits_diff("Data"), 1)
 
@@ -165,9 +162,9 @@ class UnitTest(unittest.TestCase):
 
         """
 
-        GIT = collections.namedtuple('GIT', 'iter_commits')
-        COMMIT = Commits(1).iter_commits
-        self.gitr.gitrepo = GIT(COMMIT)
+        giti = collections.namedtuple('GIT', 'iter_commits')
+        commit = Commits(1).iter_commits
+        self.gitr.gitrepo = giti(commit)
 
         self.assertEqual(self.gitr.commits_diff("Data"), 2)
 

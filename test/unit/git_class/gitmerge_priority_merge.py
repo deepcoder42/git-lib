@@ -24,14 +24,12 @@ else:
     import unittest
 
 # Third-party
-import mock
-import git
 import collections
+import git
 
 # Local
 sys.path.append(os.getcwd())
 import git_class
-import lib.gen_libs as gen_libs
 import version
 
 __version__ = version.__version__
@@ -44,12 +42,11 @@ def merge2(arg_list):
     Description:  Method stub holder for git.Repo.git.merge().
 
     Arguments:
-        (input) arg_list -> List of arguments for merge command.
 
     """
 
     if arg_list:
-         raise git.exc.GitCommandError("git", 128, "stderr")
+        raise git.exc.GitCommandError("git", 128, "stderr")
 
 
 def merge(arg_list):
@@ -59,7 +56,6 @@ def merge(arg_list):
     Description:  Method stub holder for git.Repo.git.merge().
 
     Arguments:
-        (input) arg_list -> List of arguments for merge command.
 
     """
 
@@ -78,12 +74,12 @@ class UnitTest(unittest.TestCase):
     Description:  Class which is a representation of a unit testing.
 
     Methods:
-        setUp -> Unit testing initilization.
-        test_allow_branch_options - Test with allow and branch parameters.
-        test_allow_option -> Test with allow parameter passed.
-        test_priority_merge_branch -> Test with branch parameter passed.
-        test_priority_merge_exception -> Test with raised exception.
-        test_priority_merge_true -> Test with successful checkout call.
+        setUp
+        test_allow_branch_options
+        test_allow_option
+        test_priority_merge_branch
+        test_priority_merge_exception
+        test_priority_merge_true
 
     """
 
@@ -116,8 +112,8 @@ class UnitTest(unittest.TestCase):
 
         """
 
-        GIT = collections.namedtuple('GIT', 'merge')
-        self.gitr.gitcmd = GIT(merge)
+        giti = collections.namedtuple('GIT', 'merge')
+        self.gitr.gitcmd = giti(merge)
 
         status, msg = self.gitr.priority_merge(ranch="New_Branch", allow=True)
         self.assertEqual((status, msg), (True, {}))
@@ -132,8 +128,8 @@ class UnitTest(unittest.TestCase):
 
         """
 
-        GIT = collections.namedtuple('GIT', 'merge')
-        self.gitr.gitcmd = GIT(merge)
+        giti = collections.namedtuple('GIT', 'merge')
+        self.gitr.gitcmd = giti(merge)
 
         status, msg = self.gitr.priority_merge(allow=True)
         self.assertEqual((status, msg), (True, {}))
@@ -148,8 +144,8 @@ class UnitTest(unittest.TestCase):
 
         """
 
-        GIT = collections.namedtuple('GIT', 'merge')
-        self.gitr.gitcmd = GIT(merge)
+        giti = collections.namedtuple('GIT', 'merge')
+        self.gitr.gitcmd = giti(merge)
 
         status, msg = self.gitr.priority_merge(branch="New_Branch")
         self.assertEqual((status, msg), (True, {}))
@@ -164,8 +160,8 @@ class UnitTest(unittest.TestCase):
 
         """
 
-        GIT = collections.namedtuple('GIT', 'merge')
-        self.gitr.gitcmd = GIT(merge2)
+        giti = collections.namedtuple('GIT', 'merge')
+        self.gitr.gitcmd = giti(merge2)
 
         status, msg = self.gitr.priority_merge()
         self.assertEqual((status, msg["status"]), (False, 128))
@@ -180,8 +176,8 @@ class UnitTest(unittest.TestCase):
 
         """
 
-        GIT = collections.namedtuple('GIT', 'merge')
-        self.gitr.gitcmd = GIT(merge)
+        giti = collections.namedtuple('GIT', 'merge')
+        self.gitr.gitcmd = giti(merge)
 
         status, msg = self.gitr.priority_merge()
         self.assertEqual((status, msg), (True, {}))

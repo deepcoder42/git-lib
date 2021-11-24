@@ -24,13 +24,11 @@ else:
     import unittest
 
 # Third-party
-import mock
 import collections
 
 # Local
 sys.path.append(os.getcwd())
 import git_class
-import lib.gen_libs as gen_libs
 import version
 
 __version__ = version.__version__
@@ -43,11 +41,16 @@ def is_untracked2(untracked_files):
     Description:  Method stub holder for git.Repo.git.is_untracked().
 
     Arguments:
-        untracked_files -> Stub holder.
 
     """
 
-    return False
+    status = False
+
+    if untracked_files:
+        return status
+
+    else:
+        return False
 
 
 def is_untracked(untracked_files):
@@ -57,11 +60,16 @@ def is_untracked(untracked_files):
     Description:  Method stub holder for git.Repo.git.is_untracked().
 
     Arguments:
-        untracked_files -> Stub holder.
 
     """
 
-    return True
+    status = True
+
+    if untracked_files:
+        return status
+
+    else:
+        return True
 
 
 class UnitTest(unittest.TestCase):
@@ -71,9 +79,9 @@ class UnitTest(unittest.TestCase):
     Description:  Class which is a representation of a unit testing.
 
     Methods:
-        setUp -> Unit testing initilization.
-        test_is_untracked_false -> Test with is_untracked returns False.
-        test_is_untracked_true -> Test with is_untracked returns True.
+        setUp
+        test_is_untracked_false
+        test_is_untracked_true
 
     """
 
@@ -106,8 +114,8 @@ class UnitTest(unittest.TestCase):
 
         """
 
-        GIT = collections.namedtuple('GIT', 'is_dirty')
-        self.gitr.gitrepo = GIT(is_untracked2)
+        giti = collections.namedtuple('GIT', 'is_dirty')
+        self.gitr.gitrepo = giti(is_untracked2)
 
         self.assertFalse(self.gitr.is_untracked())
 
@@ -121,8 +129,8 @@ class UnitTest(unittest.TestCase):
 
         """
 
-        GIT = collections.namedtuple('GIT', 'is_dirty')
-        self.gitr.gitrepo = GIT(is_untracked)
+        giti = collections.namedtuple('GIT', 'is_dirty')
+        self.gitr.gitrepo = giti(is_untracked)
 
         self.assertTrue(self.gitr.is_untracked())
 

@@ -24,13 +24,11 @@ else:
     import unittest
 
 # Third-party
-import mock
 import collections
 
 # Local
 sys.path.append(os.getcwd())
 import git_class
-import lib.gen_libs as gen_libs
 import version
 
 __version__ = version.__version__
@@ -43,13 +41,11 @@ def remote(arg1, arg2, arg3):
     Description:  Method stub holder for git.Repo.git.remote().
 
     Arguments:
-        arg1 -> Stub holder for option "set-url".
-        arg2 -> Stub holder for remote "origin".
-        arg3 -> Stub holder for URL address.
 
     """
 
-    pass
+    if arg1 and arg2 and arg3:
+        return True
 
 
 class UnitTest(unittest.TestCase):
@@ -59,8 +55,8 @@ class UnitTest(unittest.TestCase):
     Description:  Class which is a representation of a unit testing.
 
     Methods:
-        setUp -> Unit testing initilization.
-        test_set_remote -> Test with default values settings.
+        setUp
+        test_set_remote
 
     """
 
@@ -93,8 +89,8 @@ class UnitTest(unittest.TestCase):
 
         """
 
-        GIT = collections.namedtuple('GIT', 'remote')
-        self.gitr.gitcmd = GIT(remote)
+        giti = collections.namedtuple('GIT', 'remote')
+        self.gitr.gitcmd = giti(remote)
 
         self.assertFalse(self.gitr.set_remote())
 
